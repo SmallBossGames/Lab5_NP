@@ -12,16 +12,12 @@ namespace SocketProject_Client
     class SocketProject_ClientAPI
     {
         Socket socketConnector;
+        IPAddress ipAddress = new IPAddress(new byte[] { 192, 168, 1, 5 });
+        Int32 port = 3425;
 
         public SocketProject_ClientAPI()
         {
             socketConnector = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        }
-
-        public void StartConnecting()
-        {
-            var ipAdress = new IPAddress(new byte[] { 192, 168, 1, 5 });
-            socketConnector.Connect(ipAdress, 3425);
         }
 
         public void SendData(string data)
@@ -33,8 +29,15 @@ namespace SocketProject_Client
         {
             var byteDataPool = BitConverter.GetBytes(DateTime.Now.Ticks);
 
-            socketConnector.Send(byteDataPool);
-            socketConnector.Receive(byteDataPool);
+            using (var socketConnector = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
+            {
+                socketConnector.Connect(ipAddress, port);
+
+                socketConnector.Send(byteDataPool);
+                socketConnector.Receive(byteDataPool);
+
+                socketConnector.Shutdown(SocketShutdown.Both);
+            }
 
             DateTime deltaTime = new DateTime(BitConverter.ToInt64(byteDataPool, 0));
 

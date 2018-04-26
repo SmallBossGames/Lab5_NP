@@ -23,13 +23,14 @@ namespace Lab5_NP
             socketListner.Bind(endPoint);
             socketListner.Listen(1);
             Console.WriteLine(endPoint.Address);
-            var poolSocket = socketListner.Accept();
 
             while (true)
             {
+                var poolSocket = socketListner.Accept();
                 var buffer = new byte[sizeof(Int64)];
                 var count = poolSocket.Receive(buffer);
                 poolSocket.Send(GetDeltaTimeWithClient(buffer));
+                poolSocket.Close();
             }
         }
 

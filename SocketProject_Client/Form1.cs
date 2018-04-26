@@ -17,7 +17,6 @@ namespace SocketProject_Client
         public Form1()
         {
             client = new SocketProject_ClientAPI();
-            client.StartConnecting();
             InitializeComponent();
         }
 
