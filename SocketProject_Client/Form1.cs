@@ -23,7 +23,8 @@ namespace SocketProject_Client
 
         private void CheckButton_Click(object sender, EventArgs e)
         {
-            var deltaTime = client.GetTimeDeltaFromServer(new IPAddress(new byte[] { 192, 168, 1, 5 }), 3425);
+            var deltaTime = client.GetTimeDeltaFromServer(IPAddress.Parse(IPTextBox.Text), Convert.ToInt32(PortTextBox.Text));
+            //var deltaTime = client.GetTimeDeltaFromServer(new IPAddress(new byte[] { 192, 168, 1, 5 }), 3425);
             answerTextBox.Text = deltaTime.ToString("H:mm:ss, ffff");
         }
     }

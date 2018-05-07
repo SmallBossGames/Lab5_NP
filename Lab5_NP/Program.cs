@@ -17,7 +17,7 @@ namespace Lab5_NP
 
             do
             {
-                Console.WriteLine("Write the server IPAdress");
+                Console.WriteLine("Write the server IPAddress");
             } while (!IPAddress.TryParse(Console.ReadLine(), out address));
 
             do
