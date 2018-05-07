@@ -17,9 +17,9 @@ namespace Lab5_NP
             socketListner = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
 
-        public void StartListeing()
+        public void StartListeing(IPAddress address, int point)
         {
-            var endPoint = new IPEndPoint(new IPAddress(new byte[] { 192, 168, 1, 5 }), 3425);
+            var endPoint = new IPEndPoint(address, point);
             socketListner.Bind(endPoint);
             socketListner.Listen(1);
             Console.WriteLine(endPoint.Address);

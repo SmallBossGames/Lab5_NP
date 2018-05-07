@@ -12,12 +12,12 @@ namespace SocketProject_Client
     class SocketProject_ClientAPI
     {
         Socket socketConnector;
-        IPAddress ipAddress = new IPAddress(new byte[] { 192, 168, 1, 5 });
-        Int32 port = 3425;
+        //IPAddress ipAddress = new IPAddress(new byte[] { 192, 168, 1, 5 });
+        //Int32 port = 3425;
 
         public SocketProject_ClientAPI()
         {
-            socketConnector = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
         }
 
         public void SendData(string data)
@@ -25,13 +25,13 @@ namespace SocketProject_Client
             socketConnector.Send(Encoding.Default.GetBytes(data));
         }
 
-        public DateTime GetTimeDeltaFromServer()
+        public DateTime GetTimeDeltaFromServer(IPAddress address, int port)
         {
             var byteDataPool = BitConverter.GetBytes(DateTime.Now.Ticks);
 
             using (var socketConnector = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
             {
-                socketConnector.Connect(ipAddress, port);
+                socketConnector.Connect(address, port);
 
                 socketConnector.Send(byteDataPool);
                 socketConnector.Receive(byteDataPool);
