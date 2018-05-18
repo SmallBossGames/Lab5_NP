@@ -25,7 +25,7 @@ namespace Lab5_NP
                 Console.WriteLine("Write the port");
             } while (!Int32.TryParse(Console.ReadLine(), out port));
 
-            hui.StartListeing(address, port);
+            hui.StartListening(address, port);
         }
     }
 }
